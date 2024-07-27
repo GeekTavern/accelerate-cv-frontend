@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  margin-top: 30px;
+
+  .roleContainer {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+
+    input {
+      height: 30px;
+      padding: 4px;
+    }
+
+    textarea {
+      height: 200px;
+      padding: 8px;
+    }
+  }
+  button {
+    width: 100px;
+    margin: auto;
+    margin-top: 8px;
+  }
+}
