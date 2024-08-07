@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
+
 import pool from '@/database/connection';
 
 const handler = NextAuth({
@@ -27,14 +28,32 @@ const handler = NextAuth({
           if (response.rows.length === 0) {
             throw new Error('No user found with this email');
           }
-          //email should be unique on signup
+          // email should be unique on signup
+          // i think i have already added a constraint
+          // dont understand this
           const user = response.rows[0];
 
-          const isValidPassword = await compare(
-            credentials?.email || '',
-            user.password
+          // lets try an actual hash here an see if it will accept it or not
+          // lets hash a password
+
+          const testHash = await hash('godzilla1', 10);
+          const testComparison = await compare('godzilla1', testHash);
+
+          console.log(
+            'Here is the results of the test comparison',
+            testComparison,
+            testHash
           );
 
+          const isValidPassword = await compare(
+            credentials?.password || '',
+            user.password
+          );
+          console.log(
+            'the values to compare',
+            credentials?.password,
+            user.password
+          );
           console.log('is it a valid password:', isValidPassword);
 
           if (isValidPassword) {
