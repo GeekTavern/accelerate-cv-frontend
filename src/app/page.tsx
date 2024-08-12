@@ -1,23 +1,22 @@
-'use client';
+"use server";
 
-import Image from 'next/image';
-import styles from './page.module.css';
-import { RoleForm } from './components/roleForm/RoleForm';
-import { CvForm } from './components/cvForm/CvForm';
-import { useSession } from 'next-auth/react';
-import { AuthButton } from './components/authButton/AuthButton';
+import styles from "./page.module.css";
+import { CvForm } from "./components/cvForm/CvForm";
+import LogIn from "./components/authentication/logIn/Login";
+import Register from "./components/authentication/register/Register";
 
-export default function Home() {
+export default async function Home() {
   let roles = {};
 
+  // this is the home route, this is where we will ha
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <AuthButton></AuthButton>
         <h1>Accelerate CV</h1>
         <h2>tailor your CV with AI</h2>
+        <Register />
+        <LogIn />
       </div>
-      <CvForm />{' '}
     </div>
   );
 }

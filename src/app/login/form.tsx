@@ -17,6 +17,8 @@ export default function Form() {
     });
     console.log(response);
 
+    // if there is an error we redirect to home, not sure this is correct,
+    //probably should handle this
     if (response?.error) {
       router.push("/");
       router.refresh();

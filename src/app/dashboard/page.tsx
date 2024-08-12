@@ -1,3 +1,9 @@
+import { CvForm } from "../components/cvForm/CvForm";
+
 export default function DashboardPage() {
-    return <div>private dashboard page - you need to be logged in to view this</div>
+  return (
+    <div>
+      <CvForm />
+    </div>
+  );
 }

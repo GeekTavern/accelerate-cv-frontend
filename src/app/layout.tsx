@@ -6,7 +6,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { AuthButton } from "./components/authButton/AuthButton";
 import Link from "next/link";
-import Logout from "./components/logOut/Logout";
+import Logout from "./components/authentication/logOut/Logout";
+import LogIn from "./components/authentication/logIn/Login";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +22,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
-  if (!session) {
-    redirect("/register");
-  }
+  // if (!session) {
+  //   redirect("/register");
+  // }
   return (
     <html lang="en">
       <body className={inter.className}>
         <nav>
-          {!!session && <Logout />} {!session && <span>Login</span>}
+          {!!session && <Logout />} {!session && <LogIn />}
         </nav>
         <SessionProvider>{children}</SessionProvider>
       </body>
