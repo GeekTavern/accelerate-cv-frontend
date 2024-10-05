@@ -1,6 +1,5 @@
 export interface Role {
   position: string;
-
   description: string;
 }
 

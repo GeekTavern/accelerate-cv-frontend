@@ -5,26 +5,25 @@ export async function POST(req: Request) {
   const body: CvFormValues = await req.json();
 
   const endpoint = process.env.AI_API_ENDPOINT ?? '';
+  const bearerToken = process.env.API_BEARER_TOKEN ?? '';
 
   try {
     //this is wrong
-    const aiRequestBody = body.roles;
 
-    console.log(
-      aiRequestBody,
-      endpoint,
-      'the ai request body and the endpoint server'
-    );
+    console.log(body, "<<< the body");
+    const aiRequestBody = body.roles;
 
     const response = await fetch(endpoint, {
       method: 'POST',
       body: JSON.stringify(aiRequestBody),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearerToken}`
       },
     });
 
-    console.log(response, 'REACHED HERE');
+    console.log(response, "<<< the response")
+
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -45,12 +44,11 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     // this error handling and code is not entirely accurate
-    console.log('reached error block');
-    return (
-      new Response('error posting to ai endpoint'),
+    console.log(error, '<<< the error');
+    return new Response('error posting to ai endpoint',
       {
         status: 500,
-      }
-    );
+      }) 
+    
   }
 }
