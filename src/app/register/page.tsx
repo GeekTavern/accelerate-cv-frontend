@@ -1,6 +1,5 @@
 // we would want a password confirm field here
 // add an additional field to fulfill this
-import { FormEvent } from "react";
 import Form from "./form";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";

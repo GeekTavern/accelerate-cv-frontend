@@ -15,10 +15,7 @@ export default function Form() {
       password: formData.get("password"),
       redirect: false,
     });
-    console.log(response);
 
-    // if there is an error we redirect to home, not sure this is correct,
-    //probably should handle this
     if (response?.error) {
       router.push("/");
       router.refresh();
@@ -27,9 +24,9 @@ export default function Form() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="email" type="email"></input>
-      <input name="password" type="password"></input>
-      <button type="submit">Log in</button>
+      <input name='email' type='email'></input>
+      <input name='password' type='password'></input>
+      <button type='submit'>Log in</button>
     </form>
   );
 }

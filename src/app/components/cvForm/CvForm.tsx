@@ -1,20 +1,27 @@
-'use client';
+"use client";
 
-import { useFormik, Form, FieldArray, Field, Formik } from 'formik';
-import { CvFormValues, Role } from '../../types/globals';
-import { RoleForm } from '../roleForm/RoleForm';
-import styles from './cvForm.module.scss';
-import { submitData } from './api';
-import { useState } from 'react';
+import { useFormik, Form, FieldArray, Field, Formik } from "formik";
+import { CvFormValues, Role } from "../../types/globals";
+import { RoleForm } from "../roleForm/RoleForm";
+import styles from "./cvForm.module.scss";
+import { submitData } from "./api";
+import { useState } from "react";
 
 export const CvForm = () => {
   const initialValues: CvFormValues = { roles: [] };
   const [updatedAiRoles, setUpdatedAiRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (values: CvFormValues) => {
-    const response = await submitData(values);
-    setUpdatedAiRoles(response);
+    //error handle here
+    try {
+      setIsError(false);
+      const response = await submitData(values);
+      setUpdatedAiRoles(response);
+    } catch (error) {
+      setIsError(true);
+    }
   };
 
   return (
@@ -66,10 +73,8 @@ export const CvForm = () => {
                         type='button'
                         onClick={() =>
                           arrayHelpers.push({
-                            position: '',
-                            startDate: '',
-                            endDate: '',
-                            description: '',
+                            position: "",
+                            description: "",
                           })
                         }
                       >
@@ -88,7 +93,7 @@ export const CvForm = () => {
           <p className={styles.successStatment}>
             Submission succesful. Here's your AI powered roles. Fill your boots
           </p>
-          {updatedAiRoles.map((role: Role) => {
+          {updatedAiRoles?.map((role: Role) => {
             return (
               <div className={styles.resultsContainer}>
                 <h3 className={styles.roleTitle}>{role.position}</h3>
